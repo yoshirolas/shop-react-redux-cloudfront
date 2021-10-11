@@ -17,6 +17,10 @@ export default function AddProductToCart({product}: AddProductToCartProps) {
   const cartItems = useSelector(selectCartItems);
   const cartItem = cartItems.find(i => i.product.id === product.id);
 
+  const onIncrementHandler = () => {
+    cartItem && cartItem.count < product.count && dispatch(addToCart(product));
+  };
+
   return (
     <>
     {
@@ -29,7 +33,7 @@ export default function AddProductToCart({product}: AddProductToCartProps) {
             <Typography align="center">
               {cartItem.count}
             </Typography>
-            <IconButton onClick={() => dispatch(addToCart(product))}>
+            <IconButton onClick={onIncrementHandler} disabled={cartItem.count === product.count}>
               <Add color={"secondary"}/>
             </IconButton>
             </>
