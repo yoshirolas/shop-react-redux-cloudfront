@@ -16,6 +16,10 @@ axios.interceptors.response.use(
     if (error?.response?.status === 400) {
       alert(error.response.data?.data);
     }
+    const errorAlertMessageStatuses = [401, 403];
+    if (errorAlertMessageStatuses.includes(error?.response?.status)) {
+      alert(`${error?.response?.status} ${error.response.data?.message}`);
+    }
 
     return Promise.reject(error?.response ?? error);
   }
